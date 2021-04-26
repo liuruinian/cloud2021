@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.enjoy.springcloud.mapper.PaymentMapper">
+
+    <resultMap id="paymentInfo" type="com.enjoy.springcloud.entities.PaymentInfo">
+        <id column="id" property="id"/>
+        <result column="trade_no" property="tradeNo"/>
+    </resultMap>
+    
+    <sql id="payment_result">
+        id, trade_no
+    </sql>
+
+    <insert id="save" parameterType="PaymentInfo" useGeneratedKeys="true">
+        insert into payment_info values (#{id}, #{tradeNo})
+    </insert>
+
+    <select id="getPaymentById" resultMap="paymentInfo">
+        select <include refid="payment_result"></include> from payment_info where id = #{id}
+    </select>
+
+</mapper>
